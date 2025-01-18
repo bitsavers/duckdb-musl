@@ -61,7 +61,7 @@ jobs:
         run: |
           mkdir -p /worker/build/release
           cd /worker/build/release
-          cmake -G "Ninja" -DBUILD_UNITTESTS=0 -DCMAKE_BUILD_TYPE=Release -DDUCKDB_EXPLICIT_PLATFORM=$DUCKDB_PLATFORM -DEXTENSION_STATIC_BUILD=1 -DOVERRIDE_GIT_DESCRIBE=v1.1.3-0-g${{ github.event.inputs.version }} ../..
+          cmake -G "Ninja" -DCORE_EXTENSIONS="core_functions;parquet;shell;json" -DBUILD_UNITTESTS=0 -DCMAKE_BUILD_TYPE=Release -DDUCKDB_EXPLICIT_PLATFORM=$DUCKDB_PLATFORM -DEXTENSION_STATIC_BUILD=1 -DOVERRIDE_GIT_DESCRIBE=v1.1.3-0-g${{ github.event.inputs.version }} ../..
           ninja -j $(nproc)
           ls -la /worker/build/release
 
