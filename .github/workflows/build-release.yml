@@ -54,14 +54,15 @@ jobs:
         run: |
           apk add git cmake ninja make tar coreutils binutils
 
-      # -DCORE_EXTENSIONS='autocomplete;httpfs;icu;json;tpch;delta;shell;parquet'
+      # https://duckdb.org/docs/stable/core_extensions/overview
+      # -DCORE_EXTENSIONS='autocomplete;httpfs;icu;json;tpch;delta;parquet'
       - name: Build DuckDB
         env:
           ARCH: ${{ matrix.config.arch }}
         run: |
           mkdir -p /worker/build/release
           cd /worker/build/release
-          cmake -G "Ninja" -DCORE_EXTENSIONS="core_functions;parquet;shell;json" -DBUILD_UNITTESTS=0 -DCMAKE_BUILD_TYPE=Release -DDUCKDB_EXPLICIT_PLATFORM=$DUCKDB_PLATFORM -DEXTENSION_STATIC_BUILD=1 -DOVERRIDE_GIT_DESCRIBE=v${{ github.event.inputs.version }} ../..
+          cmake -G "Ninja" -DCORE_EXTENSIONS="autocomplete;core_functions;parquet;json" -DBUILD_UNITTESTS=0 -DCMAKE_BUILD_TYPE=Release -DDUCKDB_EXPLICIT_PLATFORM=$DUCKDB_PLATFORM -DEXTENSION_STATIC_BUILD=1 -DOVERRIDE_GIT_DESCRIBE=v${{ github.event.inputs.version }} ../..
           ninja -j $(nproc)
           ls -la /worker/build/release
           cd /worker/build/release
