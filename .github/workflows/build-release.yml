@@ -43,7 +43,7 @@ jobs:
       options: -v ${{ github.workspace }}:/worker --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined -e DUCKDB_PLATFORM=${{ matrix.config.duckdb_platform }}
     steps:
       - name: Checkout DuckDB Source Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 'duckdb/duckdb'
           ref: 'v${{ github.event.inputs.version }}'
@@ -69,7 +69,7 @@ jobs:
           tar -czvf /worker/build/release/duckdb_${{ matrix.config.duckdb_platform }}.tar.gz duckdb
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           path: ${{ github.workspace }}/build/release/duckdb
           name: duckdb_${{ matrix.config.duckdb_platform }}
