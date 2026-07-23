@@ -43,7 +43,7 @@ jobs:
       options: -v ${{ github.workspace }}:/worker --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined -e DUCKDB_PLATFORM=${{ matrix.config.duckdb_platform }}
     steps:
       - name: Checkout DuckDB Source Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: 'duckdb/duckdb'
           ref: 'v${{ github.event.inputs.version }}'
